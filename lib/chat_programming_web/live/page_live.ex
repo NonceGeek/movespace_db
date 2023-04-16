@@ -21,7 +21,134 @@ defmodule ChatProgrammingWeb.PageLive do
   end
 
   @impl true
-  def handle_params(params, _uri, socket) do
+  def handle_params(%{"q" => "1"}, _uri, socket) do
+    answer = "Sure! Here's a programming exercise on Python data structures:
+
+Write a Python program that takes in a list of integers and returns the largest and smallest numbers in the list.
+
+Here's an example of how the program should work:
+
+```
+Input: [4, 2, 7, 1, 9, 5]
+Output: Largest number is 9, smallest number is 1
+```
+
+To solve this exercise, you'll need to use Python's built-in list data structure and the max and min functions. Here's an example solution:
+
+```
+def largest_and_smallest(numbers):
+    largest = max(numbers)
+    smallest = min(numbers)
+    return Largest number is {largest}, smallest number is {smallest}
+```
+
+You can then call the function with a list of integers as an argument:
+
+```
+numbers = [4, 2, 7, 1, 9, 5]
+print(largest_and_smallest(numbers))
+```
+
+This should output:
+
+```
+Largest number is 9, smallest number is 1
+```
+
+You can modify the input list to test the function with different values. Good luck!
+"
+    history =  ["", "Human: how can I begin to learn python?",
+    "Bot: Learning Python is a great choice! Here are some steps you can take to get started:
+
+    Install Python: You can download and install the latest version of Python from the official Python website (https://www.python.org/downloads/).
+
+    Choose a learning resource: There are many online resources available for learning Python, including websites, tutorials, books, and video courses. Some popular options include Codecademy, Udemy, Coursera, and edX.
+
+    Learn the basics: Begin by learning the basics of Python syntax, data types, and control structures. This will provide a foundation for more advanced concepts later on.
+
+    Practice coding: As with any programming language, the best way to learn Python is by writing code. Start with simple exercises and gradually work your way up to more complex programs.
+
+    Join a community: There are many online communities for Python learners and developers, including forums, social media groups, and online meetups. Joining a community can provide support, advice, and opportunities to collaborate with others.
+
+    Remember to take your time, be patient, and enjoy the process of learning Python!"]
+    {
+      :noreply, assign(socket,
+      answer: answer,
+      history: handle_history(history)
+      )
+  }
+  end
+
+  def handle_params(%{"q" => "2"}, _uri, socket) do
+    answer = "Sure, here's an exercise on if statements in Python:
+
+Write a Python program that takes in an integer and checks if it is even or odd. If the integer is even, the program should print 'The number is even.' If the integer is odd, the program should print The number is odd.
+
+Here's an example of how the program should work:
+
+```
+Input: 6
+Output: The number is even.
+```
+
+And another example:
+
+```
+Input: 3
+Output: The number is odd.
+```
+
+To solve this exercise, you'll need to use an if statement to check if the input integer is even or odd. You can use the modulo operator % to determine if a number is even or odd. If a number is even, it will have a remainder of 0 when divided by 2. If a number is odd, it will have a remainder of 1 when divided by 2.
+
+Here's an example solution:
+
+```
+def even_or_odd(number):
+    if number % 2 == 0:
+        print('The number is even.')
+    else:
+        print('The number is odd.')
+```
+
+You can then call the function with an integer as an argument:
+
+```
+number = 6
+even_or_odd(number)
+```
+
+This should output:
+
+```
+The number is even.
+```
+
+You can modify the input integer to test the function with different values. Good luck!
+"
+
+history =  ["", "Human: how can I begin to learn python?",
+    "Bot: Learning Python is a great choice! Here are some steps you can take to get started:
+
+    Install Python: You can download and install the latest version of Python from the official Python website (https://www.python.org/downloads/).
+
+    Choose a learning resource: There are many online resources available for learning Python, including websites, tutorials, books, and video courses. Some popular options include Codecademy, Udemy, Coursera, and edX.
+
+    Learn the basics: Begin by learning the basics of Python syntax, data types, and control structures. This will provide a foundation for more advanced concepts later on.
+
+    Practice coding: As with any programming language, the best way to learn Python is by writing code. Start with simple exercises and gradually work your way up to more complex programs.
+
+    Join a community: There are many online communities for Python learners and developers, including forums, social media groups, and online meetups. Joining a community can provide support, advice, and opportunities to collaborate with others.
+
+    Remember to take your time, be patient, and enjoy the process of learning Python!"]
+    {
+      :noreply, assign(socket,
+      answer: answer,
+      history: handle_history(history)
+      )
+  }
+  end
+
+  def handle_params(_, _uri, socket) do
     {:noreply, socket}
   end
 
@@ -143,15 +270,21 @@ defmodule ChatProgrammingWeb.PageLive do
             </div>
           <br><br>
           <.h5>The Questions that recommend: </.h5>
-          <div class="flex items-start">
-            <.alert color="info" label="Give me a programming exercise on Python data structures." />
-          </div>
+          <a href="/?q=1">
+            <div class="flex items-start">
+              <.alert color="info" label="Give me a programming exercise on Python data structures." />
+            </div>
+          </a>
+          <a href="/?q=2">
           <div class="flex items-start mt-4">
             <.alert color="success" label="Give me an exercise on if statements in Python." />
           </div>
+          </a>
+          <a href="/?q=3">
           <div class="flex items-start mt-4">
             <.alert color="warning" label="Give me an exercise on the for statement in Python." />
           </div>
+          </a>
           <% end %>
         </div>
       </.container>
