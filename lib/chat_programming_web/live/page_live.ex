@@ -40,9 +40,7 @@ defmodule ChatProgrammingWeb.PageLive do
         },
         msg: "success"
       }
-    } = ChatServiceInteractor.chat(question)
-    IO.puts inspect answer
-    IO.puts inspect history
+    } = ChatServiceInteractor.mock_chat(question)
     {
       :noreply,
       assign(

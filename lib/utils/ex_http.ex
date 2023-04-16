@@ -54,7 +54,7 @@ defmodule ExHttp do
       {:error, 404} ->
         {:error, 404}
       {:error, _} ->
-        Process.sleep(500)
+        Process.sleep(1000)
         http_post(url, data, retries - 1)
     end
   end
