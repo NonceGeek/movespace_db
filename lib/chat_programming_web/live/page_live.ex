@@ -280,7 +280,7 @@ history =  ["", "Human: how can I begin to learn python?",
             <.alert color="success" label="Give me an exercise on if statements in Python." />
           </div>
           </a>
-          <a href="/?q=3">
+          <a href="/?q=2">
           <div class="flex items-start mt-4">
             <.alert color="warning" label="Give me an exercise on the for statement in Python." />
           </div>
