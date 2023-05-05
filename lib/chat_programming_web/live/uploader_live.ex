@@ -9,7 +9,6 @@ defmodule ChatProgrammingWeb.UploaderLive do
   def mount(_params, _session, socket) do
     current_user = socket.assigns.current_user
     user_uploads = Uploads.list_uploads(current_user)
-
     socket =
       socket
       |> assign(:current_user, current_user)

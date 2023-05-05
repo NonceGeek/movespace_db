@@ -7,8 +7,16 @@ defmodule ChatProgramming.Accounts do
   alias ChatProgramming.Repo
 
   alias ChatProgramming.Accounts.{User, UserToken, UserNotifier}
+  alias ChatProgramming.Permission
 
   ## Database getters
+
+  @doc """
+    preload user with permission
+  """
+  def preload(user) do
+    Repo.preload(user, :permission)
+  end
 
   @doc """
   Gets a user by email.
@@ -23,7 +31,9 @@ defmodule ChatProgramming.Accounts do
 
   """
   def get_user_by_email(email) when is_binary(email) do
-    Repo.get_by(User, email: email)
+    User
+    |> Repo.get_by(email: email)
+    |> preload()
   end
 
   @doc """
@@ -41,7 +51,7 @@ defmodule ChatProgramming.Accounts do
   def get_user_by_email_and_password(email, password)
       when is_binary(email) and is_binary(password) do
     user = Repo.get_by(User, email: email)
-    if User.valid_password?(user, password), do: user
+    if User.valid_password?(user, password), do: preload(user)
   end
 
   @doc """
@@ -58,7 +68,7 @@ defmodule ChatProgramming.Accounts do
       ** (Ecto.NoResultsError)
 
   """
-  def get_user!(id), do: Repo.get!(User, id)
+  def get_user!(id), do: User |> Repo.get!(id) |> preload()
 
   ## User registration
 
@@ -75,10 +85,19 @@ defmodule ChatProgramming.Accounts do
 
   """
   def register_user(attrs) do
-    %User{}
-    |> User.registration_changeset(attrs)
-    |> Repo.insert()
+    # insert user
+    {:ok, %{id: user_id}} =
+      %User{}
+      |> User.registration_changeset(attrs)
+      |> Repo.insert()
+
+    {:ok, _} = Permission.create(%{
+      user_id: user_id
+    })
+
+    {:ok, get_user!(user_id)}
   end
+
 
   @doc """
   Returns an `%Ecto.Changeset{}` for tracking user changes.

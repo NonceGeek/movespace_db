@@ -59,7 +59,7 @@ defmodule ChatProgramming.MixProject do
 
       # network interactor
       {:tesla, "~> 1.4"},
-      {:httpoison, "~> 1.8"},
+      {:httpoison, "~> 2.0"},
 
       # utils
       {:poison, "~> 3.1"},
@@ -69,6 +69,10 @@ defmodule ChatProgramming.MixProject do
 
       # binary
       {:binary, "~> 0.0.5"},
+
+      # openai
+      {:openai, "~> 0.4.2"},
+      {:ex_faiss, github: "elixir-nx/ex_faiss"}
     ]
   end
 
