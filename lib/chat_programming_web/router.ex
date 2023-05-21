@@ -69,7 +69,7 @@ defmodule ChatProgrammingWeb.Router do
       on_mount: [{ChatProgrammingWeb.UserAuth, :ensure_authenticated}] do
       live "/users/settings", UserSettingsLive, :edit
       live "/uploader", UploaderLive, :index
-      # live "/manager", ManagerLive, :index
+      live "/chatter", ChatterLive, :index
       live "/users/settings/confirm_email/:token", UserSettingsLive, :confirm_email
     end
   end
@@ -79,7 +79,8 @@ defmodule ChatProgrammingWeb.Router do
 
     live_session :require_authenticated_admin_user,
       on_mount: [{ChatProgrammingWeb.UserAuth, :ensure_authenticated}] do
-      live "/manager", ManagerLive, :index
+      live "/manager/train", TrainLive, :index
+      # live "/manager", ManagerLive, :index
       live "/manager/model_view", Manager.ModuleViewLive, :index
     end
   end

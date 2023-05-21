@@ -12,6 +12,33 @@ defmodule ExHttp do
     {:error, "GET retires #{@retries} times and not success"}
   end
 
+  def http_get(url, token, retries) do
+    IO.puts inspect url
+    url
+    |> HTTPoison.get(
+      [
+        {"User-Agent", @default_user_agent},
+        {"authorization", "Bearer #{token}"}
+      ],
+      hackney: [
+        headers: [
+          {"User-Agent", @default_user_agent}
+        ]
+    ]
+    )
+    |> handle_response()
+    |> case do
+      {:ok, body} ->
+        {:ok, body}
+
+      {:error, 404} ->
+        {:error, 404}
+      {:error, _} ->
+        Process.sleep(500)
+        http_get(url, token, retries - 1)
+    end
+  end
+
   def http_get(url, retries) do
     url
     |> HTTPoison.get([{"User-Agent", @default_user_agent}],
@@ -36,6 +63,31 @@ defmodule ExHttp do
 
   def http_post(_url, _data, retries) when retries == 0 do
     {:error, "POST retires #{@retries} times and not success"}
+  end
+
+  def http_post(url, data, token, retries) do
+    IO.puts inspect url
+    body = Poison.encode!(data)
+    url
+    |> HTTPoison.post(
+      body,
+      [
+        {"User-Agent", @default_user_agent},
+        {"Content-Type", "application/json"},
+        {"authorization", "Bearer #{token}"}
+      ],
+      hackney: [headers: [{"User-Agent", @default_user_agent}]]
+    )
+    |> handle_response()
+    |> case do
+      {:ok, body} ->
+        {:ok, body}
+      {:error, 404} ->
+        {:error, 404}
+      {:error, _} ->
+        Process.sleep(1000)
+        http_post(url, data, token, retries - 1)
+    end
   end
 
   def http_post(url, data, retries) do

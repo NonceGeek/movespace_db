@@ -2,6 +2,7 @@ defmodule ChatProgramming.Accounts.User do
   use Ecto.Schema
   import Ecto.Changeset
   alias ChatProgramming.Permission
+  alias ChatProgramming.Uploads.Upload
 
   schema "users" do
     field :email, :string
@@ -9,6 +10,7 @@ defmodule ChatProgramming.Accounts.User do
     field :hashed_password, :string, redact: true
     field :confirmed_at, :naive_datetime
     has_one :permission, Permission
+    has_many :upload, Upload
 
     timestamps()
   end

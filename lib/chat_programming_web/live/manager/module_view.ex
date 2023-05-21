@@ -2,6 +2,7 @@ defmodule ChatProgrammingWeb.Manager.ModuleViewLive do
     alias ChatProgramming.{Space, Card}
     alias ChatProgramming.ChatServiceInteractor
     alias ChatProgramming.Accounts
+    alias ChatProgramming.ModelHandler
     use ChatProgrammingWeb, :live_view
 
     @impl true
@@ -9,14 +10,13 @@ defmodule ChatProgrammingWeb.Manager.ModuleViewLive do
       current_user =
         Accounts.preload(socket.assigns.current_user)
 
-      {:ok, %{data: models}} =
-        OpenAI.models()
-      models_atomed = ExStructTranslator.to_atom_struct(models)
+      models =
+        ModelHandler.all()
       {:ok,
        assign(
         socket,
         current_user: current_user,
-        models: models_atomed
+        models: models
        )}
     end
 

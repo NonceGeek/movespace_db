@@ -14,7 +14,7 @@ defmodule ChatProgrammingWeb.UploaderLive do
       |> assign(:current_user, current_user)
       |> assign(:user_uploads, user_uploads)
       |> assign(:uploaded_files, [])
-      |> allow_upload(:avatar, accept: ~w(.md .txt), max_entries: 3)
+      |> allow_upload(:avatar, accept: :any, max_entries: 3)
 
     {:ok, socket}
   end

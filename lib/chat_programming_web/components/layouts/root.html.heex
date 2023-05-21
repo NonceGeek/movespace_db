@@ -75,15 +75,34 @@
         <div class="flex justify-end gap-3 pr-4">
         </div>
         <div class="flex justify-end gap-3 pr-4">
-          <a
-            target="_blank"
-            class="inline-flex items-center gap-2 p-2 text-gray-500 rounded dark:text-gray-400 dark:hover:text-gray-500 hover:text-gray-400 group"
-            href="/uploader"
-          >
-            <span class="hidden font-semibold sm:block">
-              投喂数据~
-            </span>
-          </a>
+
+          <%= if(!is_nil(assigns[:current_user])) do %>
+            <%= case assigns.current_user.permission.level do %>
+            <% 999 ->  %>
+              <% # admin tags %>
+              <a
+                target="_blank"
+                class="inline-flex items-center gap-2 p-2 text-gray-500 rounded dark:text-gray-400 dark:hover:text-gray-500 hover:text-gray-400 group"
+                href="/manager/model_view"
+              >
+                <span class="hidden font-semibold sm:block">
+                  模型概览
+                </span>
+              </a>
+              <a
+                target="_blank"
+                class="inline-flex items-center gap-2 p-2 text-gray-500 rounded dark:text-gray-400 dark:hover:text-gray-500 hover:text-gray-400 group"
+                href="/manager/train"
+              >
+                <span class="hidden font-semibold sm:block">
+                  模型训练
+                </span>
+              </a>
+            <% others -> %>
+              <% # normal user tags %>
+              
+            <% end %>
+          <% end %>
         </div>
       </div>
 

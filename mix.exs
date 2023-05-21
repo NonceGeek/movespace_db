@@ -72,7 +72,6 @@ defmodule ChatProgramming.MixProject do
 
       # openai
       {:openai, "~> 0.4.2"},
-      {:ex_faiss, github: "elixir-nx/ex_faiss"}
     ]
   end
 

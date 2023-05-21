@@ -7,7 +7,7 @@ defmodule ChatProgramming.Accounts do
   alias ChatProgramming.Repo
 
   alias ChatProgramming.Accounts.{User, UserToken, UserNotifier}
-  alias ChatProgramming.Permission
+  alias ChatProgramming.{Permission, Uploads}
 
   ## Database getters
 
@@ -15,7 +15,18 @@ defmodule ChatProgramming.Accounts do
     preload user with permission
   """
   def preload(user) do
-    Repo.preload(user, :permission)
+    Repo.preload(user, [:permission, :upload])
+  end
+
+  def delete_uploads(user) do
+    user = preload(user)
+    case user.upload do
+      nil ->
+        []
+      uploads ->
+        Enum.map(uploads, fn upload -> Uploads.delete_upload(upload) end)
+    end
+
   end
 
   @doc """
@@ -250,7 +261,7 @@ defmodule ChatProgramming.Accounts do
   """
   def get_user_by_session_token(token) do
     {:ok, query} = UserToken.verify_session_token_query(token)
-    Repo.one(query)
+    Repo.one(query) |> preload()
   end
 
   @doc """

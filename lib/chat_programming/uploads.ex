@@ -17,10 +17,16 @@ defmodule ChatProgramming.Uploads do
       [%Upload{}, ...]
 
   """
+
+  def preload(upload) do
+    Repo.preload(upload, :openai_file)
+  end
+
   def list_uploads(current_user) do
     Upload
     |> where(user_id: ^current_user.id)
     |> Repo.all()
+    |> Enum.map(&preload(&1))
   end
 
   @doc """

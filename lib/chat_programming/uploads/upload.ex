@@ -9,7 +9,7 @@ defmodule ChatProgramming.Uploads.Upload do
     field :path, :string
 
     belongs_to :user, ChatProgramming.Accounts.User
-
+    has_one :openai_file, ChatProgramming.OpenAIFile
     timestamps()
   end
 
