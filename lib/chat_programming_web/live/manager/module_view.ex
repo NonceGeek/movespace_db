@@ -26,7 +26,19 @@ defmodule ChatProgrammingWeb.Manager.ModuleViewLive do
     end
 
     @impl true
-    def handle_event(_others, params, socket) do
+    def handle_event("chat_with_model", %{"model-id" => model_id}, socket) do
+
+      {
+        :noreply,
+        socket
+        |> push_navigate(to: "/")
+      }
+    end
+
+    @impl true
+    def handle_event(others, params, socket) do
+      IO.puts inspect others
+      IO.puts inspect params
       {:noreply, socket}
     end
 
@@ -46,6 +58,7 @@ defmodule ChatProgrammingWeb.Manager.ModuleViewLive do
                 <.th>Search Indices?</.th>
                 <.th>View?</.th>
                 <.th>Blocking?</.th>
+                <.th>Chat with this model</.th>
               </.tr>
             </thead>
             <tbody>
@@ -59,6 +72,11 @@ defmodule ChatProgrammingWeb.Manager.ModuleViewLive do
                   <.td><%= permission |> Map.fetch!(:allow_search_indices) %></.td>
                   <.td><%= permission |> Map.fetch!(:allow_view) %></.td>
                   <.td><%= permission |> Map.fetch!(:is_blocking) %></.td>
+                  <.td>
+                    <a target="_blank" href={"/chatter?model_name=#{models.id}&topic=Programming"}>
+                      <.button color="success" label="Chat"/>
+                    </a>
+                  </.td>
                 </.tr>
               <% end %>
             </tbody>

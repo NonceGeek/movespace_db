@@ -1,0 +1,8 @@
+Identify the 20% of {topic} that will yield 80% of the desired results and provide a focused learning plan to master it. The result should be format like this:
+```json
+{
+    "id": id,
+    "name": topic_name,
+    "description": topic_description
+}
+```
