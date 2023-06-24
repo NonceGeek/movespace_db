@@ -189,7 +189,7 @@ defmodule ChatProgrammingWeb.TrainLive do
 
     # create finetune
     {:ok, %{id: finetune_id}} =
-      OpenAI.a(training_file: train_file_unique_id, model: model_name)
+      OpenAI.finetunes_create(training_file: train_file_unique_id, model: model_name)
     %{id: file_id} = OpenAIFile.get_by_unique_id(train_file_unique_id)
     {:ok, _fine_tune} = OpenAIFinetuneHistory.create(%{unique_id: finetune_id, openai_file_id: file_id})
 

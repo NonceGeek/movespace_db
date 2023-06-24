@@ -13,7 +13,6 @@ defmodule ExHttp do
   end
 
   def http_get(url, token, retries) do
-    IO.puts inspect url
     url
     |> HTTPoison.get(
       [
@@ -65,8 +64,11 @@ defmodule ExHttp do
     {:error, "POST retires #{@retries} times and not success"}
   end
 
+  def http_post(_url, _data, _token, retries) when retries == 0 do
+    {:error, "POST retires #{@retries} times and not success"}
+  end
+
   def http_post(url, data, token, retries) do
-    IO.puts inspect url
     body = Poison.encode!(data)
     url
     |> HTTPoison.post(

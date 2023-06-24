@@ -158,7 +158,6 @@ defmodule ChatProgrammingWeb.ChatterLive do
     def handle_event("renew-prompt", _params, socket) do
       vars = socket.assigns[:prompt_vars]
       prompt_new = PromptHandler.impl_vars(socket.assigns.system_now, vars)
-      IO.puts prompt_new
       {
         :noreply,
         assign(socket,

@@ -222,7 +222,7 @@ history =  ["", "Human: how can I begin to learn python?",
     <.container class="mt-10">
       <.h1>
         <span class="text-transparent bg-clip-text bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500">
-          Chat Programming
+          Self-Learning Programming by Chat
         </span>
       </.h1>
       <.h5>Chat to learning anything about programming.</.h5>
@@ -290,6 +290,25 @@ history =  ["", "Human: how can I begin to learn python?",
       </.container>
 
       <.container class="mt-10">
+        <.h2 underline label="Question Recommended" />
+          <a href="/?q=1">
+          <div class="flex items-start mt-4">
+            <.alert color="info" label="As a fresh man, how could I learn this technical?" />
+          </div>
+          </a>
+          <a href="/?q=2">
+          <div class="flex items-start mt-4">
+            <.alert color="success" label="Recommend a real project where I can learn this technique." />
+          </div>
+          </a>
+          <a href="/?q=3">
+            <div class="flex items-start mt-4">
+              <.alert color="warning" label="Recommand the bounties that I can do." />
+            </div>
+          </a>
+      </.container>
+
+      <.container class="mt-10">
         <.h2 underline label="Knowledge Cards" />
         <div class="grid gap-5 mt-5 md:grid-cols-2 lg:grid-cols-3">
           <%= for card <- @space_selected.card do %>
@@ -304,7 +323,7 @@ history =  ["", "Human: how can I begin to learn python?",
         </div>
       </.container>
 
-      <.container class="mt-10">
+      <!--<.container class="mt-10">
         <.h2 underline label="Experts Recommandation" />
         <div class="grid gap-5 mt-5 md:grid-cols-2 lg:grid-cols-3">
           <%= for expert <- @space_selected.expert do %>
@@ -322,7 +341,7 @@ history =  ["", "Human: how can I begin to learn python?",
             </a>
           <% end %>
         </div>
-      </.container>
+      </.container>-->
     </.form>
     """
   end

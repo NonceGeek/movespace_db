@@ -10,4 +10,7 @@ defmodule Constants do
     end
   end
 
+  def embedbase_key() do
+    System.get_env("EMBEDBASE_KEY")
+  end
 end

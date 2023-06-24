@@ -1,5 +1,7 @@
 defmodule ChatProgramming.ExChatServiceInteractor do
 
+  require Logger
+
   @doc """
     OpenAI.chat_completion(
       model: "gpt-3.5-turbo",
@@ -12,6 +14,7 @@ defmodule ChatProgramming.ExChatServiceInteractor do
     )
   """
   def do_chat(:chatable, model_name, msgs) do
+    Logger.info("chat_completion: #{inspect(msgs)}")
     OpenAI.chat_completion(
       model: model_name,
       messages: msgs

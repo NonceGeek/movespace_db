@@ -8,6 +8,7 @@ defmodule ChatProgramming.Permission do
     schema "permission" do
       field :level, :integer, default: 0
       field :remaining_times, :integer, default: 100
+      field :remaining_tokens, :integer, default: 5000
       belongs_to :user, User
       timestamps()
     end
@@ -54,6 +55,6 @@ defmodule ChatProgramming.Permission do
     @doc false
     def changeset(%Ele{} = ele, attrs) do
       ele
-      |> cast(attrs, [:level, :remaining_times, :user_id])
+      |> cast(attrs, [:level, :remaining_times, :user_id, :remaining_tokens])
     end
   end

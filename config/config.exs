@@ -29,6 +29,7 @@ config :openai,
   # organization_key: "your-organization-key",
   # optional, passed to [HTTPoison.Request](https://hexdocs.pm/httpoison/HTTPoison.Request.html) options
   http_options: [recv_timeout: 30_000]
+  # api_url: "http://pr.skybluedao.com/"
   # optional, useful if you want to do local integration tests using Bypass or similar
   # (https://github.com/PSPDFKit-labs/bypass), do not use it for production code,
   # but only in your test config!
@@ -41,6 +42,7 @@ config :openai,
 # For production it's recommended to configure a different adapter
 # at the `config/runtime.exs`.
 config :chat_programming, ChatProgramming.Mailer, adapter: Swoosh.Adapters.Local
+
 
 # Configure esbuild (the version is required)
 config :esbuild,
