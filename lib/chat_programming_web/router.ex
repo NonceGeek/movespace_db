@@ -67,11 +67,16 @@ defmodule ChatProgrammingWeb.Router do
 
     live_session :require_authenticated_user,
       on_mount: [{ChatProgrammingWeb.UserAuth, :ensure_authenticated}] do
-      live "/users/settings", UserSettingsLive, :edit
-      live "/uploader", UploaderLive, :index
-      live "/chatter", ChatterLive, :index
-      live "/company_analyzer", CompanyAnalyzerLive, :index
-      live "/users/settings/confirm_email/:token", UserSettingsLive, :confirm_email
+      # live "/users/settings", UserSettingsLive, :edit
+      # live "/uploader", UploaderLive, :index
+      # live "/chatter", ChatterLive, :index
+      # live "/chatgpt", ChatGPTLive, :index
+      # live "/awesome_ai", AwesomeAILive, :index
+      live "/embedbase_interactor", EmbedbaseInteractorLive, :index
+      # live "/chat", ChatterLive, :index
+      # live "/vector_dataset_handler/move", VevtorDatasetHandler.MoveLive, :index
+      # # live "/company_analyzer", CompanyAnalyzerLive, :index
+      # live "/users/settings/confirm_email/:token", UserSettingsLive, :confirm_email
     end
   end
 
@@ -80,6 +85,7 @@ defmodule ChatProgrammingWeb.Router do
 
     live_session :require_authenticated_admin_user,
       on_mount: [{ChatProgrammingWeb.UserAuth, :ensure_authenticated}] do
+      live "/embedbase_manager", EmbedbaseManagerLive, :index
       live "/manager/train", TrainLive, :index
       # live "/manager", ManagerLive, :index
       live "/manager/model_view", Manager.ModuleViewLive, :index

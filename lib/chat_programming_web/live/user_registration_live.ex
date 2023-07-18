@@ -14,10 +14,20 @@ defmodule ChatProgrammingWeb.UserRegistrationLive do
           <.link navigate={~p"/users/log_in"} class="font-semibold text-brand hover:underline">
             Sign in
           </.link>
-          to your account now.
+          to your account now.<br>
         </:subtitle>
       </.header>
-
+            
+      <hr>
+      
+      <.header class="text-center">
+        <:subtitle>
+          This app is in Beta stage, please contact Leeduckgo if you need an account:<br>
+          Telegram: @leeduckgo<br>
+          Wechat: 197626581
+        </:subtitle>
+      </.header>
+      <!--
       <.simple_form
         for={@form}
         id="registration_form"
@@ -37,7 +47,7 @@ defmodule ChatProgrammingWeb.UserRegistrationLive do
         <:actions>
           <.button phx-disable-with="Creating account..." class="w-full">Create an account</.button>
         </:actions>
-      </.simple_form>
+      </.simple_form>-->
     </div>
     """
   end

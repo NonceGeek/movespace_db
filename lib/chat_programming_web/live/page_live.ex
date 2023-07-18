@@ -20,197 +20,34 @@ defmodule ChatProgrammingWeb.PageLive do
      )}
   end
 
-  @impl true
-  def handle_params(%{"q" => "1"}, _uri, socket) do
-    answer = "Sure! Here's a programming exercise on Python data structures:
+  
 
-Write a Python program that takes in a list of integers and returns the largest and smallest numbers in the list.
-
-Here's an example of how the program should work:
-
-```
-Input: [4, 2, 7, 1, 9, 5]
-Output: Largest number is 9, smallest number is 1
-```
-
-To solve this exercise, you'll need to use Python's built-in list data structure and the max and min functions. Here's an example solution:
-
-```
-def largest_and_smallest(numbers):
-    largest = max(numbers)
-    smallest = min(numbers)
-    return Largest number is {largest}, smallest number is {smallest}
-```
-
-You can then call the function with a list of integers as an argument:
-
-```
-numbers = [4, 2, 7, 1, 9, 5]
-print(largest_and_smallest(numbers))
-```
-
-This should output:
-
-```
-Largest number is 9, smallest number is 1
-```
-
-You can modify the input list to test the function with different values. Good luck!
-"
-    history =  ["", "Human: how can I begin to learn python?",
-    "Bot: Learning Python is a great choice! Here are some steps you can take to get started:
-
-    Install Python: You can download and install the latest version of Python from the official Python website (https://www.python.org/downloads/).
-
-    Choose a learning resource: There are many online resources available for learning Python, including websites, tutorials, books, and video courses. Some popular options include Codecademy, Udemy, Coursera, and edX.
-
-    Learn the basics: Begin by learning the basics of Python syntax, data types, and control structures. This will provide a foundation for more advanced concepts later on.
-
-    Practice coding: As with any programming language, the best way to learn Python is by writing code. Start with simple exercises and gradually work your way up to more complex programs.
-
-    Join a community: There are many online communities for Python learners and developers, including forums, social media groups, and online meetups. Joining a community can provide support, advice, and opportunities to collaborate with others.
-
-    Remember to take your time, be patient, and enjoy the process of learning Python!"]
-    {
-      :noreply, assign(socket,
-      answer: answer,
-      history: handle_history(history)
-      )
-  }
-  end
-
-  def handle_params(%{"q" => "2"}, _uri, socket) do
-    answer = "Sure, here's an exercise on if statements in Python:
-
-Write a Python program that takes in an integer and checks if it is even or odd. If the integer is even, the program should print 'The number is even.' If the integer is odd, the program should print The number is odd.
-
-Here's an example of how the program should work:
-
-```
-Input: 6
-Output: The number is even.
-```
-
-And another example:
-
-```
-Input: 3
-Output: The number is odd.
-```
-
-To solve this exercise, you'll need to use an if statement to check if the input integer is even or odd. You can use the modulo operator % to determine if a number is even or odd. If a number is even, it will have a remainder of 0 when divided by 2. If a number is odd, it will have a remainder of 1 when divided by 2.
-
-Here's an example solution:
-
-```
-def even_or_odd(number):
-    if number % 2 == 0:
-        print('The number is even.')
-    else:
-        print('The number is odd.')
-```
-
-You can then call the function with an integer as an argument:
-
-```
-number = 6
-even_or_odd(number)
-```
-
-This should output:
-
-```
-The number is even.
-```
-
-You can modify the input integer to test the function with different values. Good luck!
-"
-
-history =  ["", "Human: how can I begin to learn python?",
-    "Bot: Learning Python is a great choice! Here are some steps you can take to get started:
-
-    Install Python: You can download and install the latest version of Python from the official Python website (https://www.python.org/downloads/).
-
-    Choose a learning resource: There are many online resources available for learning Python, including websites, tutorials, books, and video courses. Some popular options include Codecademy, Udemy, Coursera, and edX.
-
-    Learn the basics: Begin by learning the basics of Python syntax, data types, and control structures. This will provide a foundation for more advanced concepts later on.
-
-    Practice coding: As with any programming language, the best way to learn Python is by writing code. Start with simple exercises and gradually work your way up to more complex programs.
-
-    Join a community: There are many online communities for Python learners and developers, including forums, social media groups, and online meetups. Joining a community can provide support, advice, and opportunities to collaborate with others.
-
-    Remember to take your time, be patient, and enjoy the process of learning Python!"]
-    {
-      :noreply, assign(socket,
-      answer: answer,
-      history: handle_history(history)
-      )
-  }
-  end
 
   def handle_params(_, _uri, socket) do
     {:noreply, socket}
   end
 
-  def handle_event("submit", params, socket) do
-    %{f: %{question: question}} = ExStructTranslator.to_atom_struct(params)
+  def handle_event("submit", %{"f" => %{"select_dataset" => dataset_selected, "dataset_name" => dataset_name, "question" => q}}, socket) do
+    embedbase_id = select_dataset(dataset_selected, dataset_name)
+    search(embedbase_id, q, socket)
+  end
 
-    # interact with ChatService
+  def search(embedbase_id, question, socket) do
+    # search the dataset about the question.
+    {:ok, %{similarities: similarities}} = 
+      EmbedbaseInteractor.search_data(embedbase_id, question)
+    IO.puts inspect similarities
+    
     {
-      :ok,
-      %{
-        code: 0,
-        data:
-        %{
-          answer: answer,
-          history: history
-        },
-        msg: "success"
-      }
-    } = ChatServiceInteractor.mock_chat(question)
-    {
-      :noreply,
-      assign(
-        socket,
-        answer: answer,
-        history: handle_history(history)
+      :noreply, 
+      assign(socket,
+        search_result: similarities
       )
     }
   end
 
-  def handle_history(history_list) do
-    history_list
-    |> Enum.map(fn history ->
-      case history do
-        "" ->
-          history
-        others ->
-          case String.at(history, 0) do
-            "H" ->
-              "**Question:** " <> Binary.drop(history, 6)
-            "B" ->
-              "**Answer:** " <> Binary.drop(history, 4)
-            others ->
-              history
-          end
-      end
-    end)
-    |> Enum.drop(1)
-  end
-
-  def handle_event(
-        "change_space",
-        %{"_target" => ["f", "space_name"], "f" => %{"space_name" => space_name}} = params,
-        %{assigns: assigns} = socket
-      ) do
-    space_selected = Space.get_by_name(space_name)
-
-    {
-      :noreply,
-      socket
-      |> assign(space_selected: space_selected)
-    }
-  end
+  def select_dataset(dataset_selected, ""), do: dataset_selected
+  def select_dataset(_, dataset_name), do: dataset_name
 
   def handle_event(_others, params, socket) do
     {:noreply, socket}
@@ -220,15 +57,149 @@ history =  ["", "Human: how can I begin to learn python?",
   def render(assigns) do
     ~H"""
     <.container class="mt-10">
-      <.h1>
-        <span class="text-transparent bg-clip-text bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500">
-          Self-Learning Programming by Chat
-        </span>
-      </.h1>
-      <.h5>Chat to learning anything about programming.</.h5>
-    </.container>
+      <center>
+        <.h2>
+          <span class="text-transparent bg-clip-text bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500">
+            - Self-learning & Self-teaching Copilot based on AI -
+          </span>
+        </.h2>
+        <.h5>Learning and teaching everything assisted by AI.</.h5>
+      </center>
+    </.container> 
 
-    <.form for={@form} phx-change="change_space" phx-submit="submit">
+    <!-- Vector Dataset Interactor-->
+
+    <.container class="mt-10">  
+      <center>
+        <.simple_form for={@form} phx-change="validate" phx-submit="submit">
+          <.h3>- Interact with <a href="https://embedbase.xyz/" target="_blank" style="color:blue">Embedbase</a> -</.h3>
+          <.p>Select the Embedbase Vector Dataset:</.p>
+          <.select options={["aptos-smart-contracts-fragment-by-structure": "aptos-smart-contracts-fragment-by-structure"]} form={@form} field={:select_dataset} />
+          <.p>Or Input the <a href="https://app.embedbase.xyz/datasets" target="_blank" style="color:blue">Public Dataset</a> Name:</.p>
+          <.text_input form={@form} field={:dataset_name} placeholder="eg. web3-dataset" />
+          <.p>Ask for Query:</.p>
+          <.text_input form={@form} field={:question} placeholder="input anything to query." />
+          <.button color="secondary" label="Search!" variant="outline" />
+        </.simple_form>
+      </center>
+
+      <%= if not is_nil(assigns[:search_result]) do %>
+        <.p>Search Results in Dataset: </.p>
+        <.table>
+          <thead>
+            <.tr>
+              <.th>Result</.th>
+              <.th>Metadata</.th>
+            </.tr>
+          </thead>
+          <tbody>
+          <%= for elem <- assigns[:search_result] do %>
+            <.tr>
+              <.td><%= elem.data %></.td>
+              <.td><%= inspect(elem.metadata) %></.td>
+            </.tr>
+          <% end %>
+          </tbody>
+        </.table>
+      <% end %>
+
+    </.container> 
+    <br>
+    <hr>
+
+    <!-- Guides -->
+
+    <.container class="mt-10">  
+      <center>
+        <.h3>- How could I create the Dataset? -</.h3>
+      </center>
+    </.container> 
+    <br>
+    <hr>
+
+    <!-- Good Projects -->
+
+    <.container class="mt-10">  
+      <center>
+        <.h3>❤️ Awesome AI ❤️</.h3>
+      </center>
+    </.container> 
+    <.container class="mt-10">
+
+    <div class="grid gap-5 mt-5 md:grid-cols-2 lg:grid-cols-3">
+      <.card>
+        <center>
+          <.card_media src={~p"/images/logo_readme.png"} style="width: 50%"/>
+        </center>
+
+        <.card_content category="Solution" heading="Web3 Readme Generator">
+          Generate Web3 Readme.md for User, Repo & Organization.
+        </.card_content>
+
+        <.card_footer>
+        <.badge color="secondary" label="Lynx" />
+        <br><br>
+        <a
+          target="_blank"
+          href="/readme_generator"
+        >
+          <.button label="View">
+            View
+          </.button>
+        </a>
+        </.card_footer>
+      </.card>
+
+
+      <.card>
+        <br>
+        <center>
+          <.card_media src={~p"/images/logo_embedbase.jpeg"} style="width: 50%"/>
+        </center>
+
+        <.card_content category="Dataset" heading="Embedbase">
+          A unified API to build AI apps.
+        </.card_content>
+
+        <.card_footer>
+        <br><br>
+        <a
+          target="_blank"
+          href="https://embedbase.xyz/"
+        >
+          <.button label="View">
+            View
+          </.button>
+        </a>
+        </.card_footer>
+      </.card>
+
+      <.card>
+        <br>
+        <center>
+          <.card_media src={~p"/images/logo_flowgpt.png"} style="width: 50%"/>
+        </center>
+
+        <.card_content category="Prompt" heading="FlowGPT">
+          FIND & USE THE BEST PROMPTS.
+        </.card_content>
+
+        <.card_footer>
+        <br><br>
+        <a
+          target="_blank"
+          href="https://flowgpt.com/"
+        >
+          <.button label="View">
+            View
+          </.button>
+        </a>
+        </.card_footer>
+      </.card>
+
+    </div>
+    </.container> 
+    <!--<.form for={@form} phx-change="change_space" phx-submit="submit">
       <.container class="mt-10 mb-32">
         <.h3 label="" />
         <div>
@@ -323,7 +294,7 @@ history =  ["", "Human: how can I begin to learn python?",
         </div>
       </.container>
 
-      <!--<.container class="mt-10">
+      <.container class="mt-10">
         <.h2 underline label="Experts Recommandation" />
         <div class="grid gap-5 mt-5 md:grid-cols-2 lg:grid-cols-3">
           <%= for expert <- @space_selected.expert do %>
@@ -341,8 +312,8 @@ history =  ["", "Human: how can I begin to learn python?",
             </a>
           <% end %>
         </div>
-      </.container>-->
-    </.form>
+      </.container>
+    </.form>-->
     """
   end
 end

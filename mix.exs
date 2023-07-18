@@ -72,6 +72,10 @@ defmodule ChatProgramming.MixProject do
 
       # openai
       {:openai, "~> 0.4.2"},
+      {:ex_openai, "~> 1.2.1"},
+
+      {:elixir_uuid, "~> 1.2"},
+      {:tokenizers, "~> 0.3.0"}
     ]
   end
 

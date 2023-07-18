@@ -80,7 +80,7 @@
             <%= case assigns.current_user.permission.level do %>
             <% 999 ->  %>
               <% # admin tags %>
-              <a
+              <!--<a
                 target="_blank"
                 class="inline-flex items-center gap-2 p-2 text-gray-500 rounded dark:text-gray-400 dark:hover:text-gray-500 hover:text-gray-400 group"
                 href="/manager/model_view"
@@ -98,11 +98,49 @@
                   模型训练
                 </span>
               </a>
+
+              <a
+                target="_blank"
+                class="inline-flex items-center gap-2 p-2 text-gray-500 rounded dark:text-gray-400 dark:hover:text-gray-500 hover:text-gray-400 group"
+                href="/chatgpt"
+              >
+                <span class="hidden font-semibold sm:block">
+                  Chat 模拟
+                </span>
+              </a>-->
+              <a
+                target="_blank"
+                class="inline-flex items-center gap-2 p-2 text-gray-500 rounded dark:text-gray-400 dark:hover:text-gray-500 hover:text-gray-400 group"
+                href="/embedbase_interactor"
+              >
+                <span class="hidden font-semibold sm:block">
+                  治理公共向量数据库
+                </span>
+              </a>
+
             <% others -> %>
               <% # normal user tags %>
-              
+              <!--<a
+                target="_blank"
+                class="inline-flex items-center gap-2 p-2 text-gray-500 rounded dark:text-gray-400 dark:hover:text-gray-500 hover:text-gray-400 group"
+                href="/chatgpt"
+              >
+                <span class="hidden font-semibold sm:block">
+                  Chat 模拟
+                </span>
+              </a>-->
             <% end %>
           <% end %>
+
+          <a
+            target="_blank"
+            class="inline-flex items-center gap-2 p-2 text-gray-500 rounded dark:text-gray-400 dark:hover:text-gray-500 hover:text-gray-400 group"
+            href="/embedbase_interactor"
+          >
+            <span class="hidden font-semibold sm:block">
+              交互公共向量数据库
+            </span>
+          </a>
         </div>
       </div>
 
@@ -110,7 +148,7 @@
         <a
           target="_blank"
           class="inline-flex items-center gap-2 p-2 text-gray-500 rounded dark:text-gray-400 dark:hover:text-gray-500 hover:text-gray-400 group"
-          href="https://github.com/NonceGeek/chat_programming"
+          href="https://github.com/NonceGeek/chat-programming"
         >
           <svg
             class="w-5 h-5 fill-gray-500"
