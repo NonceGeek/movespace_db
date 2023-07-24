@@ -352,6 +352,29 @@ defmodule ChatProgrammingWeb.PageLive do
         </.card_footer>
       </.card>
 
+      <!--<.card>
+        <br>
+        <center>
+          <.card_media src={~p"/images/logo_embedbase.png"} style="width: 50%"/>
+        </center>
+
+        <.card_content category="Search" heading="Chainintel">
+          The Web3 * AI data analysis tool supports the analysis of multi-chain on-chain data, and combines data and public opinion in a visual way for project analysis and market attribution.
+        </.card_content>
+
+        <.card_footer>
+        <br><br>
+        <a
+          target="_blank"
+          href="https://embedbase.xyz/"
+        >
+          <.button label="View">
+            View
+          </.button>
+        </a>
+        </.card_footer>
+      </.card>-->
+
     </div>
     </.container> 
 
