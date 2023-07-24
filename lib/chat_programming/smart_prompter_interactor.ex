@@ -1,12 +1,11 @@
 defmodule ChatProgramming.SmartPrompterInteractor do
 
-  @default_smart_prompter "http://localhost:4001"
-
   @paths %{
     user:
       %{
         register: "api/users/register",
-        login: "api/users/log_in"
+        login: "api/users/log_in",
+        get_current_user: "api/current_user"
       },
     chat:
       %{
@@ -21,6 +20,7 @@ defmodule ChatProgramming.SmartPrompterInteractor do
     # TODO.
   end
 
+  # for test
   def register(endpoint) do
     body = %{
       user: %{
@@ -30,6 +30,16 @@ defmodule ChatProgramming.SmartPrompterInteractor do
     }
     path = "#{endpoint}/#{@paths.user.register}"
     ExHttp.http_post(path, body)
+  end
+
+  def get_current_user(endpoint) do
+    # path = "#{endpoint}/#{@paths.user.get_current_user}"
+    # IO.puts inspect path
+    # token = get_session(endpoint)
+    # ExHttp.http_get(path, token, 3)
+    :smart_prompter_user_info
+    |> Process.whereis()
+    |> Agent.get(fn user_info -> user_info end)
   end
 
   def login(endpoint) do
@@ -48,20 +58,36 @@ defmodule ChatProgramming.SmartPrompterInteractor do
     Process.register(agent, :smart_prompter)
   end
 
+  def register_agent(:smart_prompter_user_info) do
+    {:ok, agent} = Agent.start_link fn -> [] end
+    Process.register(agent, :smart_prompter_user_info)
+  end
+
   def set_session(endpoint) do
     {
       :ok,
         %{
           email: email,
+          id: id,
           token: the_token
-        }
+        } = the_user_info
     } = login(endpoint)
     pid = Process.whereis(:smart_prompter)
+    pid_user_info = Process.whereis(:smart_prompter_user_info)
     if is_nil(pid) do
-      register_agent()
-    else
-      Agent.update(pid, fn token -> the_token end)
+      register_agent()      
     end
+
+    if is_nil(pid_user_info) do
+      register_agent(:smart_prompter_user_info)      
+    end
+
+    pid = Process.whereis(:smart_prompter)
+    Agent.update(pid, fn token -> the_token end)
+
+
+    pid_user_info = Process.whereis(:smart_prompter_user_info)
+    Agent.update(pid_user_info, fn user_info -> the_user_info end)
   end
 
   def get_session(endpoint) do
@@ -114,5 +140,16 @@ defmodule ChatProgramming.SmartPrompterInteractor do
     ExHttp.http_get(path, token, 3)
   end
 
+  def list_template(endpoint, user_id) do
+    token = get_session(endpoint)
+    path = "#{endpoint}/#{@paths.templates.create}?user_id=#{user_id}"
+    ExHttp.http_get(path, token, 3)
+  end
+
+  def get_template(endpoint, template_id) do
+    token = get_session(endpoint)
+    path = "#{endpoint}/api/prompt_templates/#{template_id}"
+    ExHttp.http_get(path, token, 3)
+  end
 
 end

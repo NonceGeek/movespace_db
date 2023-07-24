@@ -21,6 +21,7 @@ defmodule ChatProgrammingWeb.Router do
     pipe_through :browser
 
     live "/", PageLive, :index
+    live "/chat_new", ChatNewLive, :index
     get "/test", PageController, :home
   end
 
