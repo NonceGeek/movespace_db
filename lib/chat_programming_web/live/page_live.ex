@@ -377,7 +377,16 @@ defmodule ChatProgrammingWeb.PageLive do
 
     </div>
     </.container> 
-
+    <br><hr>
+    <center>
+      <br>
+      <.p>
+        𑖌𑖼2023 NonceGeekDAO & 苏州喵自在区块链科技有限公司.𑖌𑖼
+        <br>
+        ALL RIGHTS RESERVED.
+        <br>
+      </.p>
+    </center>
     """
   end
 end
