@@ -1,5 +1,9 @@
 # Chat Programming
 
+See Governancer smart contract in:
+
+> https://explorer.aptoslabs.com/account/0xca1fe57768cad929b40d06ad66f87752e11c7f01be485d710ba36215422b2ae0/modules/code/governancer/proposal?network=testnet
+
 A clean install of the Phoenix 1.7 (RC) along with:
 - Alpine JS - using a CDN to avoid needing `node_modules`
 - 🌺 [Petal Components Library](https://github.com/petalframework/petal_components)
