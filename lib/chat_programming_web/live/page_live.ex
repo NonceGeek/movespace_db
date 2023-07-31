@@ -130,6 +130,14 @@ defmodule ChatProgrammingWeb.PageLive do
       <center>
         <.simple_form for={@form} phx-change="validate" phx-submit="submit">
           <.h3>- Interact with <a href="https://embedbase.xyz/" target="_blank" style="color:blue">Embedbase</a> -</.h3>
+
+          <.p>
+            Submit a proposal to the public vector datasets by 
+            <a href="https://noncegeek.github.io/vector-dataset-governancer/" target="_blank" style="color:blue">Governancer dApp</a>, 
+            Or see the proposals in
+            <a href="/proposal_viewer" target="_blank" style="color:blue">Proposal Panel</a>.
+          </.p>
+
           <.p>Select the Embedbase Vector Dataset:</.p>
           <.select options={["aptos-smart-contracts-fragment-by-structure": "aptos-smart-contracts-fragment-by-structure"]} form={@form} field={:select_dataset} />
           <.p>Or Input the <a href="https://app.embedbase.xyz/datasets" target="_blank" style="color:blue">Public Dataset</a> Name:</.p>
@@ -378,10 +386,34 @@ defmodule ChatProgrammingWeb.PageLive do
     </div>
     </.container> 
     <br><hr>
+    <.container class="mt-10">
+      <center>
+        <.h3> Project Hodler </.h3>
+      </center>
+      <div class="grid gap-5 mt-5 md:grid-cols-2 lg:grid-cols-2">
+        <.card>
+          <br>
+          <center>
+            <a href="https://noncegeek.com/" target="_blank">
+              <.card_media src={~p"/images/logo_ng.png"} style="width: 50%"/>
+            </a>
+          </center>
+        </.card>
+
+      
+      <.card>
+        <br>
+        <center>
+          <.card_media src={~p"/images/logo_2718.png"} style="width: 50%"/>
+        </center>
+      </.card>
+    </div>
+    </.container>
+    <br><hr>
     <center>
       <br>
       <.p>
-        𑖌𑖼2023 NonceGeekDAO & 苏州喵自在区块链科技有限公司.𑖌𑖼
+        𑖌𑖼2023 NonceGeekDAO & 2718.AI & 苏州喵自在区块链科技有限公司.𑖌𑖼
         <br>
         ALL RIGHTS RESERVED.
         <br>

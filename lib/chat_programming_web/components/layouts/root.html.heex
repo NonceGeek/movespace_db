@@ -135,12 +135,21 @@
           <a
             target="_blank"
             class="inline-flex items-center gap-2 p-2 text-gray-500 rounded dark:text-gray-400 dark:hover:text-gray-500 hover:text-gray-400 group"
+            href="/proposal_viewer"
+          >
+            <span class="hidden font-semibold sm:block">
+              Proposal Viewer
+            </span>
+          </a>
+          <!--<a
+            target="_blank"
+            class="inline-flex items-center gap-2 p-2 text-gray-500 rounded dark:text-gray-400 dark:hover:text-gray-500 hover:text-gray-400 group"
             href="/embedbase_interactor"
           >
             <span class="hidden font-semibold sm:block">
-              交互公共向量数据库
+              Dataset Manager Login
             </span>
-          </a>
+          </a>-->
         </div>
       </div>
 
@@ -179,7 +188,6 @@
             Follow us
           </span>
         </a>
-        <.color_scheme_switch />
 
         <ul class="relative z-10 flex items-center gap-4 px-4 sm:px-6 lg:px-8 justify-end">
           <%= if @current_user do %>

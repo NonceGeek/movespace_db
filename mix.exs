@@ -59,7 +59,7 @@ defmodule ChatProgramming.MixProject do
 
       # network interactor
       {:tesla, "~> 1.4"},
-      {:httpoison, "~> 2.0"},
+      {:httpoison, "~> 2.0", override: true},
 
       # utils
       {:poison, "~> 3.1"},
@@ -75,7 +75,13 @@ defmodule ChatProgramming.MixProject do
       {:ex_openai, "~> 1.2.1"},
 
       {:elixir_uuid, "~> 1.2"},
-      {:tokenizers, "~> 0.3.0"}
+      {:tokenizers, "~> 0.3.0"},
+
+      # Aptos
+      {:web3_aptos_ex, "~> 1.1.4"},
+
+      # ecto
+      {:ecto, "~> 3.7", override: true},
     ]
   end
 

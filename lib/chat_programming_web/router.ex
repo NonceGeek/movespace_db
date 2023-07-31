@@ -21,14 +21,18 @@ defmodule ChatProgrammingWeb.Router do
     pipe_through :browser
 
     live "/", PageLive, :index
+    live "/proposal_viewer", ProposalViewerLive, :index
     live "/chat_new", ChatNewLive, :index
     get "/test", PageController, :home
+
   end
 
   # Other scopes may use custom stacks.
-  # scope "/api", ChatProgrammingWeb do
-  #   pipe_through :api
-  # end
+  scope "/api/v1", ChatProgrammingWeb do
+    pipe_through :api
+
+    post "/proposal", ProposalController, :create
+  end
 
   # Enable LiveDashboard and Swoosh mailbox preview in development
   if Application.compile_env(:chat_programming, :dev_routes) do
