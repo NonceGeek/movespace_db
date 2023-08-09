@@ -4,12 +4,19 @@ defmodule ChatProgrammingWeb.PageLive do
   alias ChatProgramming.TemplateHandler
   use ChatProgrammingWeb, :live_view
 
-  @default_endpoint "http://localhost:4001"
+  @default_endpoint Constants.smart_prompter_endpoint()
   @impl true
   def mount(params, _session, socket) do
-    :ok = SmartPrompterInteractor.set_session(@default_endpoint)
-    smart_prompter_user = %{id: id}= SmartPrompterInteractor.get_current_user(@default_endpoint)
-    {:ok, %{data: prompt_templates}} = SmartPrompterInteractor.list_template(@default_endpoint, id)
+    {smart_prompter_user, prompt_templates} = 
+    if Constants.service_smart_prompter?() do
+      :ok = SmartPrompterInteractor.set_session(@default_endpoint)
+      smart_prompter_user = %{id: id}= SmartPrompterInteractor.get_current_user(@default_endpoint)
+      {:ok, %{data: prompt_templates}} = SmartPrompterInteractor.list_template(@default_endpoint, id)
+      {smart_prompter_user, prompt_templates}
+    else
+      {nil, []}
+    end
+
     {:ok,
      assign(
        socket,
