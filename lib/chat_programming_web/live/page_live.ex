@@ -140,7 +140,7 @@ defmodule ChatProgrammingWeb.PageLive do
 
           <.p>
             Submit a proposal to the public vector datasets by 
-            <a href="https://noncegeek.github.io/vector-dataset-governancer/" target="_blank" style="color:blue">Governancer dApp</a>, 
+            <a href="https://vector-dataset-governancer.vercel.app/" target="_blank" style="color:blue">Governancer dApp</a>, 
             Or see the proposals in
             <a href="/proposal_viewer" target="_blank" style="color:blue">Proposal Panel</a>.
           </.p>
