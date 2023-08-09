@@ -1,8 +1,8 @@
 # Chat Programming
 
-See Governancer smart contract in:
+See Governancer dApp Repo in:
 
-> https://explorer.aptoslabs.com/account/0xca1fe57768cad929b40d06ad66f87752e11c7f01be485d710ba36215422b2ae0/modules/code/governancer/proposal?network=testnet
+> https://github.com/NonceGeek/vector-dataset-governancer
 
 A clean install of the Phoenix 1.7 (RC) along with:
 - Alpine JS - using a CDN to avoid needing `node_modules`
