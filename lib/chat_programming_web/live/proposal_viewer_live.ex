@@ -37,7 +37,7 @@ defmodule ChatProgrammingWeb.ProposalViewerLive do
                         Or
                         <br>
                         view  
-                        <a href="https://explorer.aptoslabs.com/account/ca1fe57768cad929b40d06ad66f87752e11c7f01be485d710ba36215422b2ae0/modules/run/governancer/add_voter?network=testnet" target="_blank" style="color:blue">the smart contract</a>.
+                        <a href="https://explorer.aptoslabs.com/account/0xacca9ef640d32e344493128bc40dcd5649b18ab3d7b55e0a6d3f5dc6ed4da082/modules/run/governancer/add_voter?network=testnet" target="_blank" style="color:blue">the smart contract</a>.
                     </.p>
                 </center>
                 <br><hr><br>
