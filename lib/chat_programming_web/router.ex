@@ -14,6 +14,7 @@ defmodule ChatProgrammingWeb.Router do
   end
 
   pipeline :api do
+    plug CORSPlug, origin: [~r/.*/]
     plug :accepts, ["json"]
   end
 

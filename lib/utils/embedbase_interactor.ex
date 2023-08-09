@@ -48,7 +48,7 @@ defmodule EmbedbaseInteractor do
         url = "#{@api_url}/v1/#{dataset_id}/clear"
         ExHttp.http_get(url, Constants.embedbase_key(), @default_retries)  
     end
-    #     Retrieving Data
+    # Retrieving Data
     # Using Bing Search
     # Inserting Data
     # Updating Data

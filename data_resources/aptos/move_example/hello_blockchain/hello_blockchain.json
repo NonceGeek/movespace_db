@@ -1,0 +1,16 @@
+{
+  "struct": [
+    "struct MessageHolder has key {\n    message: string::String,\n    message_change_events: event::EventHandle<MessageChangeEvent>,\n}\n",
+    "struct MessageChangeEvent has drop, store {\n    from_message: string::String,\n    to_message: string::String,\n}\n"
+  ],
+  "event": [
+    "struct MessageChangeEvent has drop, store {\n    from_message: string::String,\n    to_message: string::String,\n}\n"
+  ],
+  "function": [
+    "#[view]\npublic fun get_message(addr: address): string::String acquires MessageHolder {\n    assert!(exists<MessageHolder>(addr), error::not_found(ENO_MESSAGE));\n    borrow_global<MessageHolder>(addr).message\n}\n\npublic entry fun set_message(account: signer, message: string::String)\nacquires MessageHolder {\n    let account_addr = signer::address_of(&account);\n    if (!exists<MessageHolder>(account_addr)) {\n        move_to(&account, MessageHolder {\n            message,\n            message_change_events: account::new_event_handle<MessageChangeEvent>(&account),\n        })\n    } else {\n        let old_message_holder = borrow_global_mut<MessageHolder>(account_addr);\n        let from_message = old_message_holder.message;\n        event::emit_event(&mut old_message_holder.message_change_events, MessageChangeEvent {\n            from_message,\n            to_message: copy message,\n        });\n        old_message_holder.message = message;\n    }\n}",
+    "public entry fun set_message(account: signer, message: string::String)\n    acquires MessageHolder {\n        let account_addr = signer::address_of(&account);\n        if (!exists<MessageHolder>(account_addr)) {\n            move_to(&account, MessageHolder {\n                message,\n                message_change_events: account::new_event_handle<MessageChangeEvent>(&account),\n            })\n        } else {\n            let old_message_holder = borrow_global_mut<MessageHolder>(account_addr);\n            let from_message = old_message_holder.message;\n            event::emit_event(&mut old_message_holder.message_change_events, MessageChangeEvent {\n                from_message,\n                to_message: copy message,\n            });\n            old_message_holder.message = message;\n        }\n    }"
+  ],
+  "test": [
+    "#[test(account = @0x1)]\npublic entry fun sender_can_set_message(account: signer) acquires MessageHolder {\n    let addr = signer::address_of(&account);\n    aptos_framework::account::create_account_for_test(addr);\n    set_message(account,  string::utf8(b\"Hello, Blockchain\"));\n\n    assert!(\n        get_message(addr) == string::utf8(b\"Hello, Blockchain\"),\n        ENO_MESSAGE\n    );\n}"
+  ]
+}

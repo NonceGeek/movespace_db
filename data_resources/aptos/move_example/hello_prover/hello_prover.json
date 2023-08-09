@@ -1,0 +1,13 @@
+{
+  "struct": [],
+  "event": [],
+  "spec": [
+    "spec plus1 {\n    ensures result == x+1;\n}\n",
+    "spec abortsIf0 {\n    aborts_if x == 0;\n}\n"
+  ],
+  "function": [
+    "fun plus1(x: u64): u64 {\n    x+1\n}",
+    "fun abortsIf0(x: u64) {\n    if (x == 0) {\n        abort(0)\n    };\n}"
+  ],
+  "test": []
+}

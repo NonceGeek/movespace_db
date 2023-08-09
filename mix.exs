@@ -78,10 +78,13 @@ defmodule ChatProgramming.MixProject do
       {:tokenizers, "~> 0.3.0"},
 
       # Aptos
-      {:web3_aptos_ex, "~> 1.1.4"},
+      {:web3_aptos_ex, "~> 1.1.6"},
 
       # ecto
       {:ecto, "~> 3.7", override: true},
+
+      # cross domain
+      {:cors_plug, "~> 2.0"},
     ]
   end
 
