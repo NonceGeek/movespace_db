@@ -13,7 +13,7 @@ defmodule ChatProgramming.GovernancerInteractor do
         proposal_set: "#{@contract_addr}::governancer::ProposalSet",
         proposal: "#{@contract_addr}::governancer::Proposal",
     }
-    
+
     def get_voters(client) do
       with {:ok, result} <- RPC.get_resource(
         client,
@@ -52,9 +52,12 @@ defmodule ChatProgramming.GovernancerInteractor do
     end
 
     def get_proposal_approve(client, proposal_title) do
+        Web3AptosEx.Aptos.call_view_func(client, "#{@contract_addr}::governancer::get_proposal_approve", [], [proposal_title])
+
     end
 
     def get_proposal_deny(client, proposal_title) do
+        Web3AptosEx.Aptos.call_view_func(client, "#{@contract_addr}::governancer::get_proposal_deny", [], [proposal_title])
     end
 
     def transfer(client, acct, to, amount) do

@@ -1,13 +1,32 @@
 defmodule ChatProgrammingWeb.ProposalViewerLive do
     alias ChatProgramming.Proposal
+    alias ChatProgramming.GovernancerInteractor
     use ChatProgrammingWeb, :live_view
 
     @impl true
     def mount(_params, _session, socket) do
-        proposals = Proposal.get_all()
+        proposals = 
+            Proposal.get_all()
+            |> get_vote_status_on_chain()
+
         {:ok, assign(socket,
             proposals: proposals
         )}
+    end
+
+    def get_vote_status_on_chain(proposals) do
+        proposals
+        |> Enum.map(fn %{title: title} = proposal ->
+            {:ok, client} = Web3AptosEx.Aptos.connect()
+            {:ok, approved} = GovernancerInteractor.get_proposal_approve(client, title)
+            {:ok, denied} = GovernancerInteractor.get_proposal_deny(client, title)
+            proposal = Map.put(proposal, :approved, "#{approved}/#{denied}/1")
+            if approved =="1" do
+                Map.put(proposal, :if_approved, true)
+            else
+                Map.put(proposal, :if_approved, false)
+            end
+        end)
     end
 
     def handle_params(_params, _url, socket) do
@@ -50,7 +69,7 @@ defmodule ChatProgrammingWeb.ProposalViewerLive do
                     <.th>Contributor</.th>
                     <.th>Dataset ID</.th>
                     <.th>If approved?</.th>
-                    <.th>Get the On-chain Status</.th>
+                    <.th>Vote Status(Approved/Denied/All)</.th>
                   </.tr>
                 </thead>
                 <tbody>
@@ -62,9 +81,7 @@ defmodule ChatProgrammingWeb.ProposalViewerLive do
                     <.td><%= proposal.dataset_id %></.td>
                     <.td><%= proposal.if_approved %></.td>
                     <.td>
-                        <a href="https://explorer.aptoslabs.com/account/0xca1fe57768cad929b40d06ad66f87752e11c7f01be485d710ba36215422b2ae0/modules/view/governancer/get_proposal_approve?network=testnet" target="_blank">
-                            <.button phx-click="check_on_chain_status" phx-value-proposal_title={proposal.title} class="ml-2">Get!</.button>
-                        </a>
+                        <%= proposal.approved %>
                     </.td>
                   </.tr>
                 <% end %>

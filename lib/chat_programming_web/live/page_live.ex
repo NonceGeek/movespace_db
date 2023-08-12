@@ -4,6 +4,8 @@ defmodule ChatProgrammingWeb.PageLive do
   alias ChatProgramming.TemplateHandler
   use ChatProgrammingWeb, :live_view
 
+
+  # @default_endpoint "http://localhost:4001"
   @default_endpoint Constants.smart_prompter_endpoint()
   @impl true
   def mount(params, _session, socket) do
@@ -151,6 +153,8 @@ defmodule ChatProgrammingWeb.PageLive do
           <.text_input form={@form} field={:dataset_name} placeholder="eg. web3-dataset" />
           <.p>Ask for Query:</.p>
           <.text_input form={@form} field={:question} placeholder="input anything to query." value="Give me the examples about struct."/>
+          <.p>The number of items to be queried: </.p>
+          <.text_input placeholder="input the num of items to be queried." value="5"/>
           <.button color="secondary" label="Search!" variant="outline" />
         </.simple_form>
       </center>

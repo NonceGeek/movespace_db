@@ -64,6 +64,7 @@ defmodule ChatProgramming.SmartPrompterInteractor do
   end
 
   def set_session(endpoint) do
+    IO.puts inspect endpoint
     {
       :ok,
         %{
