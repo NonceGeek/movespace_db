@@ -50,7 +50,7 @@ defmodule ChatProgrammingWeb.ProposalViewerLive do
                 <center>
                     <.p>
                         Open the  
-                        <a href="https://noncegeek.github.io/vector-dataset-governancer/" target="_blank" style="color:blue">Governancer dApp</a>, 
+                        <a href="https://vector-dataset-governancer.vercel.app/" target="_blank" style="color:blue">Governancer dApp</a>, 
                         to submit your proposal
                         <br>
                         Or
