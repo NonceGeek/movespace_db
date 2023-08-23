@@ -85,6 +85,9 @@ defmodule ChatProgramming.MixProject do
 
       # cross domain
       {:cors_plug, "~> 2.0"},
+
+      # arweave
+      {:arweave_sdk_ex, "~> 0.1.10"},
     ]
   end
 

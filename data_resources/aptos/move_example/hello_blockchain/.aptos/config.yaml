@@ -1,0 +1,8 @@
+---
+profiles:
+  leeduckgo:
+    private_key: "0xc17019f65ab3e756ac8ef4e686207e8e2930b71fa8f7654f6582617c95260b15"
+    public_key: "0xa8bcfafde73374711517bdf9dabda27d2fc4da7992899a2db53d33d886712b56"
+    account: 52628f596fbec9dd08bd69fd6d000f96de1e09128bd477fe7ad969eb7925a295
+    rest_url: "https://fullnode.testnet.aptoslabs.com"
+    faucet_url: "https://faucet.testnet.aptoslabs.com"

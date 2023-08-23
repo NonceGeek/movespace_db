@@ -24,6 +24,8 @@ defmodule ChatProgrammingWeb.Router do
     live "/", PageLive, :index
     live "/proposal_viewer", ProposalViewerLive, :index
     live "/chat_new", ChatNewLive, :index
+    live "/arweave_syncer", ArweaveSyncerLive, :index
+
     get "/test", PageController, :home
 
   end
