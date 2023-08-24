@@ -72,13 +72,24 @@ defmodule ChatProgrammingWeb.PageLive do
   end
   
   def handle_event("submit_for_generate_prompt", %{"f" => %{"question" => q}}, socket) do
+    IO.puts inspect socket.assigns.template_selected.id
     # TODO: update it.
-    template_selected = socket.assigns.template_selected
+    prompt_final = 
+    case socket.assigns.template_selected.id do
+      7 ->
+        template_selected = socket.assigns.template_selected
 
-    search_result_filtered = socket.assigns.search_result_filtered
-    build_codes = build_code(search_result_filtered)
-    type = search_result_filtered |> Enum.fetch!(0) |> Map.fetch!(:metadata) |> Map.fetch!(:type)
-    prompt_final = TemplateHandler.gen_prompt(template_selected.content, %{type: type, codes: build_codes, question: q})
+        search_result_filtered = socket.assigns.search_result_filtered
+        build_codes = build_code(search_result_filtered)
+        type = search_result_filtered |> Enum.fetch!(0) |> Map.fetch!(:metadata) |> Map.fetch!(:type)
+        TemplateHandler.gen_prompt(template_selected.content, %{type: type, codes: build_codes, question: q})
+      9 ->
+        template_selected = socket.assigns.template_selected
+        search_result_filtered = socket.assigns.search_result_filtered
+        content = build_code(search_result_filtered)
+        TemplateHandler.gen_prompt(template_selected.content, %{content: content, question: q})
+
+      end
     {
       :noreply, assign(socket,
         prompt_final: prompt_final
