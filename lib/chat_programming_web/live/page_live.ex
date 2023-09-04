@@ -174,7 +174,7 @@ defmodule ChatProgrammingWeb.PageLive do
           <.text_input form={@form} field={:dataset_name} placeholder="eg. web3-dataset" />
 
           <!-- result panel -->
-          <div class="grid gap-5 mt-5 md:grid-cols-2 lg:grid-cols-1" style="height: auto;">
+          <div class="grid gap-5 mt-5 md:grid-cols-1 lg:grid-cols-1" style="height: auto;">
             <.card>
                 <%= if not is_nil(assigns[:search_result]) do %>
                   <br>
@@ -234,7 +234,7 @@ defmodule ChatProgrammingWeb.PageLive do
 
 
             <%= if not is_nil(assigns[:prompt_final]) do %>
-                <div class="grid gap-5 mt-5 md:grid-cols-2 lg:grid-cols-1" style="height: auto;text-align: left">
+                <div class="grid gap-5 mt-5 md:grid-cols-1 lg:grid-cols-1" style="height: auto;text-align: left">
                   <.card>
                     <.card_content>
                       <br>
