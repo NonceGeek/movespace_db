@@ -267,8 +267,9 @@ defmodule ChatProgrammingWeb.PageLive do
     <br>
     <hr>
 
-    <!-- Guides -->
 
+    <!-- Guides -->
+    <!--
     <.container class="mt-10">  
       <center>
         <.h3>- How could I create the Dataset? -</.h3>
@@ -300,115 +301,10 @@ defmodule ChatProgrammingWeb.PageLive do
     </.container>
     <br>
     <hr>
-
+    -->
     <!-- Good Projects -->
-
-    <.container class="mt-10">  
-      <center>
-        <.h3>❤️ Awesome AI ❤️</.h3>
-      </center>
-    </.container> 
-
-    <.container class="mt-10">
-    <div class="grid gap-5 mt-5 md:grid-cols-2 lg:grid-cols-3">
-      <.card>
-        <br>
-        <center>
-          <.card_media src={~p"/images/logo_lynx.png"} style="width: 50%"/>
-        </center>
-
-        <.card_content category="Solution" heading="LynxAI">
-          Lynx AI aims to leverage the cognitive capabilities of AI large models, extensively debug them using enterprise private data and industry knowledge, and precisely tailor them to specific business scenarios. 
-        </.card_content>
-
-        <.card_footer>
-        <.badge color="secondary" label="Lynx" />
-        <br><br>
-        <a
-          target="_blank"
-          href="https://lynxai.cn/"
-        >
-          <.button label="View">
-            View
-          </.button>
-        </a>
-        </.card_footer>
-      </.card>
-
-
-      <.card>
-        <br>
-        <center>
-          <.card_media src={~p"/images/logo_embedbase.png"} style="width: 50%"/>
-        </center>
-
-        <.card_content category="Dataset" heading="Embedbase">
-          A unified API to build AI apps.
-        </.card_content>
-
-        <.card_footer>
-        <br><br>
-        <a
-          target="_blank"
-          href="https://embedbase.xyz/"
-        >
-          <.button label="View">
-            View
-          </.button>
-        </a>
-        </.card_footer>
-      </.card>
-
-      <.card>
-        <br>
-        <center>
-          <.card_media src={~p"/images/logo_flowgpt.png"} style="width: 50%"/>
-        </center>
-
-        <.card_content category="Prompt" heading="FlowGPT">
-          FIND & USE THE BEST PROMPTS.
-        </.card_content>
-
-        <.card_footer>
-        <br><br>
-        <a
-          target="_blank"
-          href="https://flowgpt.com/"
-        >
-          <.button label="View">
-            View
-          </.button>
-        </a>
-        </.card_footer>
-      </.card>
-
-      <!--<.card>
-        <br>
-        <center>
-          <.card_media src={~p"/images/logo_embedbase.png"} style="width: 50%"/>
-        </center>
-
-        <.card_content category="Search" heading="Chainintel">
-          The Web3 * AI data analysis tool supports the analysis of multi-chain on-chain data, and combines data and public opinion in a visual way for project analysis and market attribution.
-        </.card_content>
-
-        <.card_footer>
-        <br><br>
-        <a
-          target="_blank"
-          href="https://embedbase.xyz/"
-        >
-          <.button label="View">
-            View
-          </.button>
-        </a>
-        </.card_footer>
-      </.card>-->
-
-    </div>
-    </.container> 
-    <br><hr>
-    <.container class="mt-10">
+ 
+    <.container class="mt-5">
       <center>
         <.h3> Project Hodler </.h3>
       </center>
