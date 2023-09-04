@@ -17,4 +17,16 @@ defmodule Constants do
   def embedbase_key() do
     System.get_env("EMBEDBASE_KEY")
   end
+
+  def smart_prompter_endpoint() do
+    System.get_env("SMART_PROMPTER_ENDPOINT")
+  end
+
+  def smart_prompter_acct() do
+    System.get_env("SMART_PROMPTER_ACCT")
+  end
+
+  def smart_prompter_pwd() do
+    System.get_env("SMART_PROMPTER_PWD")
+  end
 end

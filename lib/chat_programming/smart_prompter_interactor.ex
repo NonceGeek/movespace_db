@@ -24,8 +24,8 @@ defmodule ChatProgramming.SmartPrompterInteractor do
   def register(endpoint) do
     body = %{
       user: %{
-        email: "test@test.com",
-        password: "1234567891011"
+        email: Constants.smart_prompter_acct(),
+        password: Constants.smart_prompter_pwd()
       }
     }
     path = "#{endpoint}/#{@paths.user.register}"
@@ -45,8 +45,8 @@ defmodule ChatProgramming.SmartPrompterInteractor do
   def login(endpoint) do
     body = %{
       user: %{
-        email: "test@test.com",
-        password: "1234567891011"
+        email: Constants.smart_prompter_acct(),
+        password: Constants.smart_prompter_pwd()
       }
     }
     path = "#{endpoint}/#{@paths.user.login}"
@@ -64,7 +64,6 @@ defmodule ChatProgramming.SmartPrompterInteractor do
   end
 
   def set_session(endpoint) do
-    IO.puts inspect endpoint
     {
       :ok,
         %{
