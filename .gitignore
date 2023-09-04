@@ -39,3 +39,4 @@ npm-debug.log
 .elixir_ls
 .envrc
 .DS_Store
+*.swap
