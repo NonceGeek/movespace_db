@@ -150,7 +150,7 @@ defmodule ChatProgrammingWeb.PageLive do
       <center>
         <.h2>
           <span class="text-transparent bg-clip-text bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500">
-            MoveSpaceDB  Prompt-to-Query Dashboard, powered by OpenAI。
+            MoveSpaceDB: Prompt-to-Query Dashboard, powered by OpenAI.
           </span>
         </.h2>
       </center>
