@@ -223,7 +223,7 @@ defmodule ChatProgrammingWeb.PageLive do
             </div>
 
             <.text_input form={@form} field={:question} placeholder="Enter your prompt to search" value={assigns[:search_question_now]}/>
-            <.p>A search question example: Give me the examples about struct. The \"type\" in metadata should be \"struct\".</.p>
+            <.p>A search question example: Give me the examples about struct. The "type" in metadata should be "struct".</.p>
 
             <.button color="secondary" label="Search!" variant="outline" />
           </.simple_form>
