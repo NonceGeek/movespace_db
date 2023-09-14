@@ -92,6 +92,16 @@ defmodule ChatProgrammingWeb.PageLive do
     }
   end
 
+  def handle_event("change_input", %{"_target" => ["f", "select_dataset"]} = params, socket) do
+    IO.puts inspect params
+    {
+      :noreply, 
+      assign(socket,
+        selected_vd_now: "aptos-whitepaper-handled"
+      )
+    }
+  end
+
   def handle_event("prompter_generator_change", %{"_target" => ["f", "question"], "f" => %{"question" => question}}, socket) do
     {
       :noreply, 
@@ -187,7 +197,7 @@ defmodule ChatProgrammingWeb.PageLive do
           </.p>
 
           <.p>Select the Vector Dataset:</.p>
-          <.select options={["aptos-smart-contracts-fragment-by-structure": "aptos-smart-contracts-fragment-by-structure", "aptos-whitepaper-handled": "aptos-whitepaper-handled"]} form={@form} field={:select_dataset} />
+          <.select options={["aptos-smart-contracts-fragment-by-structure": "aptos-smart-contracts-fragment-by-structure", "aptos-whitepaper-handled": "aptos-whitepaper-handled"]} form={@form} field={:select_dataset} value={assigns[:selected_vd_now]}/>
           <.p>Or Input the <a href="https://app.embedbase.xyz/datasets" target="_blank" style="color:blue">Public Dataset</a> Name:</.p>
           <.text_input form={@form} field={:dataset_name} placeholder="eg. web3-dataset" />
 
