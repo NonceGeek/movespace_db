@@ -92,12 +92,11 @@ defmodule ChatProgrammingWeb.PageLive do
     }
   end
 
-  def handle_event("change_input", %{"_target" => ["f", "select_dataset"]} = params, socket) do
-    IO.puts inspect params
+  def handle_event("change_input", %{"_target" => ["f", "select_dataset"],  "f" => %{"select_dataset" => selected_vd}} = params, socket) do
     {
       :noreply, 
       assign(socket,
-        selected_vd_now: "aptos-whitepaper-handled"
+        selected_vd_now: selected_vd
       )
     }
   end
