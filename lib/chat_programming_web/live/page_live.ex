@@ -82,6 +82,24 @@ defmodule ChatProgrammingWeb.PageLive do
       Map.fetch(metadata, String.to_atom(key)) == {:ok, value}
     end)
   end
+
+  def handle_event("change_input", %{"_target" => ["f", "question"], "f" => %{"question" => question}}, socket) do
+    {
+      :noreply, 
+      assign(socket,
+        search_question_now: question
+      )
+    }
+  end
+
+  def handle_event("prompter_generator_change", %{"_target" => ["f", "question"], "f" => %{"question" => question}}, socket) do
+    {
+      :noreply, 
+      assign(socket,
+        prompt_question_now: question
+      )
+    }
+  end
   
   def handle_event("submit_for_generate_prompt", %{"f" => %{"question" => q}}, socket) do
     IO.puts inspect socket.assigns.template_selected.id
@@ -159,7 +177,7 @@ defmodule ChatProgrammingWeb.PageLive do
 
     <.container class="mt-10">  
       <center>
-        <.simple_form for={@form} phx-change="validate" phx-submit="submit">
+        <.simple_form for={@form} phx-change="change_input" phx-submit="submit">
 
           <.p>
             Submit a proposal to the public vector datasets by 
@@ -204,7 +222,8 @@ defmodule ChatProgrammingWeb.PageLive do
               </.card>
             </div>
 
-            <.text_input form={@form} field={:question} placeholder="Enter your prompt to search" value={"Give me the examples about struct. The \"type\" in metadata should be \"struct\"."}/>
+            <.text_input form={@form} field={:question} placeholder="Enter your prompt to search" value={assigns[:search_question_now]}/>
+            <.p>A search question example: Give me the examples about struct. The \"type\" in metadata should be \"struct\".</.p>
 
             <.button color="secondary" label="Search!" variant="outline" />
           </.simple_form>
@@ -212,9 +231,10 @@ defmodule ChatProgrammingWeb.PageLive do
           <%= if not is_nil(assigns[:search_result]) do %>
 
           <center>
-            <.simple_form for={@form_prompt_generator} phx-submit="submit_for_generate_prompt">
+            <.simple_form for={@form_prompt_generator} phx-change="prompter_generator_change" phx-submit="submit_for_generate_prompt">
             <.p><b>Generate Prompt for LLM by the Question:</b></.p>
-            <.text_input form={@form_prompt_generator} field={:question} value="Please Generate a struct which named AddressAggregator." placeholder="question" />
+            <.text_input form={@form_prompt_generator} field={:question} value={assigns[:prompt_question_now]} placeholder="question" />
+            <.p>A llm question example: Please Generate a struct which named AddressAggregator.</.p>
             <div class="grid gap-5 mt-5 md:grid-cols-2 lg:grid-cols-4">
               <%= for template <- @prompt_templates do %>
                 <.card>
