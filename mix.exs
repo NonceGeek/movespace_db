@@ -9,7 +9,9 @@ defmodule ChatProgramming.MixProject do
       elixirc_paths: elixirc_paths(Mix.env()),
       start_permanent: Mix.env() == :prod,
       aliases: aliases(),
-      deps: deps()
+      deps: deps(),
+      escript: [main_module: ChatProgramming.CLI]# for the build of cli tool.
+
     ]
   end
 

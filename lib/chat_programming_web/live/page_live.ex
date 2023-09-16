@@ -196,7 +196,11 @@ defmodule ChatProgrammingWeb.PageLive do
           </.p>
 
           <.p>Select the Vector Dataset:</.p>
-          <.select options={["aptos-smart-contracts-fragment-by-structure": "aptos-smart-contracts-fragment-by-structure", "aptos-whitepaper-handled": "aptos-whitepaper-handled"]} form={@form} field={:select_dataset} value={assigns[:selected_vd_now]}/>
+          <.select options={[
+            "aptos-smart-contracts-fragment-by-structure": "aptos-smart-contracts-fragment-by-structure", 
+            "aptos-whitepaper-handled": "aptos-whitepaper-handled", 
+            "eth-smart-contracts-fragment-by-structure": "eth-smart-contracts-fragment-by-structure"
+            ]} form={@form} field={:select_dataset} />
           <.p>Or Input the <a href="https://app.embedbase.xyz/datasets" target="_blank" style="color:blue">Public Dataset</a> Name:</.p>
           <.text_input form={@form} field={:dataset_name} placeholder="eg. web3-dataset" />
 

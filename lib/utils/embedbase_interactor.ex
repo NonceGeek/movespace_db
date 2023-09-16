@@ -17,6 +17,7 @@ defmodule EmbedbaseInteractor do
             {:ok, %{id: id}} =ExHttp.http_post(url, body, Constants.embedbase_key(), @default_retries)
             {tag, id}
         end)
+
     end
 
     def insert_data(dataset_id, data) do
@@ -47,11 +48,18 @@ defmodule EmbedbaseInteractor do
         url = "#{@api_url}/v1/#{dataset_id}/clear"
         ExHttp.http_get(url, Constants.embedbase_key(), @default_retries)  
     end
-    # Retrieving Data
-    # Using Bing Search
-    # Inserting Data
-    # Updating Data
+
+    def update_data(dataset_id, data_id, data) do
+        url = "#{@api_url}/v1/#{dataset_id}"
+        body = %{documents: [%{id: data_id, data: data}]}
+        ExHttp.http_post(url, body, Constants.embedbase_key(), @default_retries)
+    end
+
     # Delete data
-    # Delete dataset
+    def delete_data(dataset_id, ids) do
+        url = "#{@api_url}/v1/#{dataset_id}"
+        body = %{ids: ids}
+        ExHttp.http_delete(url, body, Constants.embedbase_key(), @default_retries)
+    end
 
 end
