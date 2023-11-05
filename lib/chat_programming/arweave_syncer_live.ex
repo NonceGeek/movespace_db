@@ -100,7 +100,6 @@ defmodule ChatProgrammingWeb.ArweaveSyncerLive do
         </center>
       </.container>
 
-      <!-- Areweave Interactor -->
 
     <.container class="mt-10">  
         <center>

@@ -29,7 +29,6 @@ defmodule ChatProgrammingWeb.ManagerLive do
     @impl true
     def render(assigns) do
       ~H"""
-      <%!-- Only Admin could see manager --%>
       <br><br><br>
       <center>
         <.h2>Hello World!</.h2>

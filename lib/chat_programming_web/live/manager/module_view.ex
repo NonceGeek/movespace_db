@@ -45,7 +45,6 @@ defmodule ChatProgrammingWeb.Manager.ModuleViewLive do
     @impl true
     def render(assigns) do
       ~H"""
-      <%!-- Only Admin could see manager --%>
       <br><br><br>
       <center>
         <.table>

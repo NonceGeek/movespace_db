@@ -270,17 +270,14 @@ defmodule ChatProgrammingWeb.TrainLive do
             </form>
 
             <section phx-drop-target={@uploads.training_files.ref}>
-              <%!-- render each training_files entry --%>
               <%= for entry <- @uploads.training_files.entries do %>
                 <article class="upload-entry">
                   <figure>
                     <figcaption><%= entry.client_name %></figcaption>
                   </figure>
 
-                  <%!-- entry.progress will update automatically for in-flight entries --%>
                   <progress value={entry.progress} max="100"><%= entry.progress %>%</progress>
 
-                  <%!-- a regular click event whose handler will invoke Phoenix.LiveView.cancel_upload/3 --%>
                   <button
                     type="button"
                     phx-click="cancel-upload"
@@ -290,14 +287,12 @@ defmodule ChatProgrammingWeb.TrainLive do
                     &times;
                   </button>
 
-                  <%!-- Phoenix.Component.upload_errors/2 returns a list of error atoms --%>
                   <%= for err <- upload_errors(@uploads.training_files, entry) do %>
                     <p class="alert alert-danger"><%= error_to_string(err) %></p>
                   <% end %>
                 </article>
               <% end %>
 
-              <%!-- Phoenix.Component.upload_errors/1 returns a list of error atoms --%>
               <%= for err <- upload_errors(@uploads.training_files) do %>
                 <p class="alert alert-danger"><%= error_to_string(err) %></p>
               <% end %>

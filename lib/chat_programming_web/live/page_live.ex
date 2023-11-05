@@ -182,7 +182,6 @@ defmodule ChatProgrammingWeb.PageLive do
         </.h2>
       </center>
     </.container> 
-    <!-- Vector Dataset Interactor-->
 
     <.container class="mt-10">  
       <center>
@@ -204,7 +203,6 @@ defmodule ChatProgrammingWeb.PageLive do
           <.p>Or Input the <a href="https://app.embedbase.xyz/datasets" target="_blank" style="color:blue">Public Dataset</a> Name:</.p>
           <.text_input form={@form} field={:dataset_name} placeholder="eg. web3-dataset" />
 
-          <!-- result panel -->
           <div class="grid gap-5 mt-5 md:grid-cols-1 lg:grid-cols-1" style="height: auto;">
             <.card>
                 <%= if not is_nil(assigns[:search_result]) do %>
@@ -301,7 +299,6 @@ defmodule ChatProgrammingWeb.PageLive do
     <hr>
 
 
-    <!-- Guides -->
     <!--
     <.container class="mt-10">  
       <center>
@@ -335,7 +332,6 @@ defmodule ChatProgrammingWeb.PageLive do
     <br>
     <hr>
     -->
-    <!-- Good Projects -->
  
     <.container class="mt-5">
       <center>

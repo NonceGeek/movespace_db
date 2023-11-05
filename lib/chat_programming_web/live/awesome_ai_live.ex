@@ -83,7 +83,6 @@ defmodule ChatProgrammingWeb.AwesomeAILive do
             <.button color="secondary" label="上传 MARKDOWN 压缩包（ZIP）" type="submit" variant="shadow" />
         </form>
         <br><hr><br>
-        <!-- UPLOAD FILES -->
         <.h3>选择本地 JSON 文件包上传：</.h3>
         <form id="upload-form" phx-submit="save" phx-change="validate">
             <.live_file_input upload={@uploads.raw_files}/>
