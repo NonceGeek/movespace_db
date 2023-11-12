@@ -90,6 +90,9 @@ defmodule ChatProgramming.MixProject do
 
       # arweave
       {:arweave_sdk_ex, "~> 0.1.10"},
+
+      # csv handler
+      {:nimble_csv, "~> 1.1"}
     ]
   end
 
