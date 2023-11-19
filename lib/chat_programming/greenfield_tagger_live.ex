@@ -136,7 +136,7 @@ defmodule ChatProgrammingWeb.GreenfieldTaggerLive do
             </.h2>
         
         <.p>TODO: here is a pic to describe the process.</.p>
-        <.p><a href="https://testnet.dcellar.io/" style="color: blue;" target="_blank">want to upload files to greenfield?</a></.p>
+        <.p><a href="https://dcellar.io/" style="color: blue;" target="_blank">want to upload files to greenfield?</a></.p>
         </center>
       </.container>
 
