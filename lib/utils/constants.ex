@@ -29,4 +29,12 @@ defmodule Constants do
   def smart_prompter_pwd() do
     System.get_env("SMART_PROMPTER_PWD")
   end
+
+  def greenfield_sp_endpoint() do
+    "https://greenfield-sp.defibit.io"
+  end
+
+  def greenfield_endpoint() do
+    "https://greenfield-chain-us.bnbchain.org"
+  end
 end

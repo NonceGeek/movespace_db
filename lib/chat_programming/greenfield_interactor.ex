@@ -15,25 +15,31 @@ defmodule ChatProgramming.GreenfieldInteractor do
        fetch_file(endpoint, bucket_name, "indexer.json")
     end
 
+    def fetch_vector_db(vector_or_not, greenfield_endpoint, greenfield_sp_endpoint, bucket_name) do
+        # TODO: fetch more files by the index
+        {[first_file_name], others} = 
+            vector_or_not
+            |> fetch_vector_db_file_list(greenfield_endpoint, bucket_name)
+            |> Enum.split(1)
+        fetch_file(greenfield_sp_endpoint, bucket_name, first_file_name)
+    end
     @doc """
-        fetch count in a bucket
+        fetch vectorDB exclude vector info in a bucket
     """
-    def fetch_vector_db(:count, endpoint, bucket_name) do
+    def fetch_vector_db_file_list(:no_vector, endpoint, bucket_name) do
+        # get_name_list
         endpoint
         |> fetch_object_list(bucket_name)
         |> Enum.filter(fn obj_name -> String.ends_with?(obj_name, ".csv") end)
-        # filter all the csv files.
-        |> Enum.count()
+        |> Enum.reject(fn obj_name -> String.contains?(obj_name, "vector") end)
     end
 
-    def fetch_vector_db(:data, endpoint, bucket_name, indexer) do
-        # fetch all the data, which means file end with "csv".
-        obj_name = 
-            endpoint
-            |> fetch_object_list(bucket_name)
-            |> Enum.filter(fn obj_name -> String.ends_with?(obj_name, ".csv") end)
-            |> Enum.fetch!(indexer)
-        fetch_file(endpoint, bucket_name, obj_name)
+    def fetch_vector_db_file_list(:vector, endpoint, bucket_name) do
+        # get_name_list
+        endpoint
+        |> fetch_object_list(bucket_name)
+        |> Enum.filter(fn obj_name -> String.ends_with?(obj_name, ".csv") end)
+        |> Enum.filter(fn obj_name -> String.contains?(obj_name, "vector") end)
     end
 
     # +-----------------+
@@ -47,10 +53,28 @@ defmodule ChatProgramming.GreenfieldInteractor do
 
     @doc """
         fetch object list by bucket name.
+        path: 
+        > {endpoint}/greenfield/storage/list_objects/{bucket_name}
+        for example:
+        > https://greenfield-chain-us.bnbchain.org/greenfield/storage/list_objects/all-whitepapers
+        see in:
+        > proto/greenfield/storage/query.proto
+        
     """
     def fetch_object_list(endpoint, bucket_name) do
-        # TODO: the API is somethings wrong, so mock it now.
-        ["indexer.json", "all-whitepapers.csv"]
+        {:ok,
+            %{
+            object_infos: object_infos
+            }
+        } =
+        endpoint
+        |> build_fetch_object_list_path(bucket_name)
+        |> ExHttp.http_get()
+        Enum.map(object_infos, fn %{object_name: object_name} -> object_name end)
+    end
+
+    def build_fetch_object_list_path(endpoint, bucket_name) do
+        "#{endpoint}/greenfield/storage/list_objects/#{bucket_name}"
     end
 
     @doc """

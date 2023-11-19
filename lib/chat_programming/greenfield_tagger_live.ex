@@ -6,7 +6,6 @@ defmodule ChatProgrammingWeb.GreenfieldTaggerLive do
     alias ChatProgramming.Accounts
     use ChatProgrammingWeb, :live_view
 
-    @greenfield_endpoint "https://gnfd-testnet-sp3.bnbchain.org"
     @impl true
     def mount(params, _session, socket) do
         vector_dataset_items = 
@@ -96,14 +95,15 @@ defmodule ChatProgrammingWeb.GreenfieldTaggerLive do
         {
             :ok, 
             indexer
-        } = GreenfieldInteractor.fetch_vector_db(:index, @greenfield_endpoint, bucket_name)
+        } = GreenfieldInteractor.fetch_vector_db(:index, Constants.greenfield_sp_endpoint(), bucket_name)
         {
             :ok,
             vector_data
-        } = GreenfieldInteractor.fetch_file(
-            @greenfield_endpoint, 
-            bucket_name, 
-            "all-whitepapers_1699766112650.csv"
+        } = GreenfieldInteractor.fetch_vector_db(
+            :no_vector, 
+            Constants.greenfield_endpoint(), 
+            Constants.greenfield_sp_endpoint(), 
+            bucket_name
         )
 
         vector_data = CSVParser.parse_string(vector_data)
@@ -181,7 +181,7 @@ defmodule ChatProgrammingWeb.GreenfieldTaggerLive do
                         <.td><%= data %></.td>
                         <.td><%= metadata %></.td>
                         <.td>
-                            <a href="https://greenfield-eight.vercel.app/debug" target="_blank">
+                            <a href={assigns[:indexer].tagger_dapp} target="_blank">
                                 <.button  color="secondary" label="Tag this item!" variant="outline" />
                             </a>
                         </.td>
