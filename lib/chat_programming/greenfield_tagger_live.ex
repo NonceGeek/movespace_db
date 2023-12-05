@@ -140,7 +140,6 @@ defmodule ChatProgrammingWeb.GreenfieldTaggerLive do
         </center>
       </.container>
 
-
     <.container class="mt-10">  
         <center>
             <.h2>

@@ -37,4 +37,12 @@ defmodule Constants do
   def greenfield_endpoint() do
     "https://greenfield-chain-us.bnbchain.org"
   end
+
+  def movespace_endpoint() do
+    "https://faas.movespace.xyz"
+  end
+
+  def movespace_api_key() do
+    System.get_env("MOVESPACE_API_KEY")
+  end
 end

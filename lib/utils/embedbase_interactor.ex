@@ -17,7 +17,6 @@ defmodule EmbedbaseInteractor do
             {:ok, %{id: id}} =ExHttp.http_post(url, body, Constants.embedbase_key(), @default_retries)
             {tag, id}
         end)
-
     end
 
     def insert_data(dataset_id, data) do
