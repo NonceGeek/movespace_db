@@ -29,6 +29,7 @@ defmodule ChatProgrammingWeb.Router do
     live "/greenfield_tagger", GreenfieldTaggerLive, :index
     live "/autonomous_book", AutonomousBookLive, :index
     live "/web3_data_tagger", Web3DataTaggerLive, :index
+    live "/galxe", GalxeLive, :index
     get "/test", PageController, :home
 
   end

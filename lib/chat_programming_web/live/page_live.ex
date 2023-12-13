@@ -29,7 +29,8 @@ defmodule ChatProgrammingWeb.PageLive do
        # prompt service login info.
        smart_prompter_user: smart_prompter_user,
        # templates.
-       prompt_templates: prompt_templates
+       prompt_templates: prompt_templates,
+       select_dataset_now: "galxe-campaigns"
      )}
   end
 
@@ -96,7 +97,7 @@ defmodule ChatProgrammingWeb.PageLive do
     {
       :noreply, 
       assign(socket,
-        selected_vd_now: selected_vd
+        select_dataset_now: selected_vd
       )
     }
   end
@@ -198,8 +199,11 @@ defmodule ChatProgrammingWeb.PageLive do
           <.select options={[
             "aptos-smart-contracts-fragment-by-structure": "aptos-smart-contracts-fragment-by-structure", 
             "aptos-whitepaper-handled": "aptos-whitepaper-handled", 
-            "eth-smart-contracts-fragment-by-structure": "eth-smart-contracts-fragment-by-structure"
-            ]} form={@form} field={:select_dataset} />
+            "all-whitepapers": "all-whitepapers", 
+            "galxe-campaigns": "galxe-campaigns", 
+            "eth-smart-contracts-fragment-by-structure": "eth-smart-contracts-fragment-by-structure",
+
+            ]} form={@form} field={:select_dataset} value={@select_dataset_now}/>
           <.p>Or Input the <a href="https://app.embedbase.xyz/datasets" target="_blank" style="color:blue">Public Dataset</a> Name:</.p>
           <.text_input form={@form} field={:dataset_name} placeholder="eg. web3-dataset" />
 
