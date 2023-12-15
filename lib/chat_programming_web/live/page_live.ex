@@ -215,6 +215,7 @@ defmodule ChatProgrammingWeb.PageLive do
                   <.table>
                     <thead>
                       <.tr>
+                        <.th>Unique ID</.th>
                         <.th>Result</.th>
                         <.th>Metadata</.th>
                       </.tr>
@@ -222,6 +223,7 @@ defmodule ChatProgrammingWeb.PageLive do
                     <tbody>
                     <%= for elem <- assigns[:search_result] do %>
                       <.tr>
+                        <.td><%= elem.id %></.td>
                         <.td><%= elem.data %></.td>
                         <.td><%= inspect(elem.metadata) %></.td>
                       </.tr>
